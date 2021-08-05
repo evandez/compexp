@@ -5,7 +5,7 @@ Configurable settings for probing
 GPU = True  # running on GPU is highly suggested
 INDEX_FILE = "index_ade20k.csv"  # Which index file to use? If _sm, use test mode
 CLEAN = False  # set to "True" if you want to clean the temporary large files after generating result
-MODEL = "resnet18"  # model arch: resnet18, alexnet, resnet50, densenet161
+MODEL = "resnet18"  # model arch: resnet18, resnet50, resnet152, alexnet, densenet161
 DATASET = "places365"  # model trained on: places365 or imagenet. If None,use untrained resnet (random baseline)
 MODEL_CHECKPOINT = None  # model training checkpoint. None if not used
 MODEL_DATA_PERCENT = None  # model data percent (e.g. for places365). None if not used
@@ -90,7 +90,7 @@ elif DATASET == "imagenet":
 elif DATASET == "ade20k":
     NUM_CLASSES = 365
 
-if MODEL not in {"resnet18", "resnet50", "densenet161", "renset101", "alexnet", "vgg16"}:
+if MODEL not in {"resnet18", "resnet50", "resnet152", "densenet161", "renset101", "alexnet", "vgg16"}:
     raise NotImplementedError(f"model = {MODEL}")
 
 if MODEL == "resnet18":
