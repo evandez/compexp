@@ -15,7 +15,7 @@ QUANTILE = 0.005  # the threshold used for activation
 TOTAL_QUANTILE = 0.01  # the threshold used for whole-image activation
 SEG_THRESHOLD = 0.04  # the threshold used for visualization
 SCORE_THRESHOLD = 0.04  # the threshold used for IoU score (in HTML file)
-CONTRIBUTIONS = True  # If True, assume successive layers feed into each other; will use weights of layer i+1 to identify neurons contributing to layer i
+CONTRIBUTIONS = False  # If True, assume successive layers feed into each other; will use weights of layer i+1 to identify neurons contributing to layer i
 TOPN = 5  # to show top N image with highest activation for each unit
 PARALLEL = (
     8  # how many process is used for tallying
