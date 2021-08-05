@@ -1,7 +1,7 @@
 import settings
 import torch
 import torchvision
-
+from models import alexnet, resnet152
 
 def noop(*args, **kwargs):
     pass
@@ -14,7 +14,12 @@ def loadmodel(
     pretrained_override=None,
 ):
     device = torch.device("cuda" if settings.GPU else "cpu")
-    model_fn = torchvision.models.__dict__[settings.MODEL]
+    if settings.MODEL == 'alexnet' and settings.MODEL_FILE is not None:
+        model_fn = alexnet.AlexNet()
+    elif settings.MODEL == 'resnet152' and settings.MODEL_FILE is not None:
+        model_fn = resnet152.OldResNet152()
+    else:
+        model_fn = torchvision.models.__dict__[settings.MODEL]
 
     if settings.MODEL_FILE is None:
         model = model_fn(
