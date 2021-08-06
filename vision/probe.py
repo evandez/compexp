@@ -71,19 +71,20 @@ wholeacts = features[-1] > thresholds[-1][np.newaxis, :, np.newaxis, np.newaxis]
 wholeacts = wholeacts.any((2, 3))
 
 # ==== Confusion matrix =====
-# pred_records = []
-# for i, ((p, t), acts) in enumerate(zip(preds, wholeacts)):
-#     acts = acts * 1  # To int
-#     pred_name = ade20k.I2S[p]
-#     target_name = f"{fo.data.scene(i)}-s"
-#     if target_name in ade20k.S2I:
-#         pred_records.append((pred_name, target_name, *acts))
+if settings.CONFUSION_MATRIX:
+    pred_records = []
+    for i, ((p, t), acts) in enumerate(zip(preds, wholeacts)):
+        acts = acts * 1  # To int
+        pred_name = ade20k.I2S[p]
+        target_name = f"{fo.data.scene(i)}-s"
+        if target_name in ade20k.S2I:
+            pred_records.append((pred_name, target_name, *acts))
 
-# pred_df = pd.DataFrame.from_records(
-#     pred_records, columns=["pred", "target", *map(str, range(wholeacts.shape[1]))]
-# )
-# pred_df.to_csv(os.path.join(settings.OUTPUT_FOLDER, "preds.csv"), index=False)
-# print(f"Accuracy: {(pred_df.pred == pred_df.target).mean() * 100:.2f}%")
+    pred_df = pd.DataFrame.from_records(
+        pred_records, columns=["pred", "target", *map(str, range(wholeacts.shape[1]))]
+    )
+    pred_df.to_csv(os.path.join(settings.OUTPUT_FOLDER, "preds.csv"), index=False)
+    print(f"Accuracy: {(pred_df.pred == pred_df.target).mean() * 100:.2f}%")
 
 # ==== Multilayer case - neuron contributions ====
 if settings.CONTRIBUTIONS:

@@ -29,6 +29,8 @@ CATEGORIES = [
 ]  # concept categories that are chosen to detect: "object", "part", "scene", "material", "texture", "color"
 UNIT_RANGE = None  # Give range if you want to use only some units
 
+CONFUSION_MATRIX = False
+
 # Formula summaries
 EMBEDDING_SUMMARY = False  # Embedding-based summary
 WN_SUMMARY = False  # Wordnet-based summary
