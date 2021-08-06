@@ -29,7 +29,9 @@ CATEGORIES = [
 ]  # concept categories that are chosen to detect: "object", "part", "scene", "material", "texture", "color"
 UNIT_RANGE = None  # Give range if you want to use only some units
 
-CONFUSION_MATRIX = False
+# Runtime settings.
+GENERATE_CONFUSION_MATRIX = False # Generate confusion matrix
+GENERATE_HTML_SUMMARY = False # Generate HTML summary
 
 # Formula summaries
 EMBEDDING_SUMMARY = False  # Embedding-based summary

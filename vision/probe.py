@@ -71,7 +71,7 @@ wholeacts = features[-1] > thresholds[-1][np.newaxis, :, np.newaxis, np.newaxis]
 wholeacts = wholeacts.any((2, 3))
 
 # ==== Confusion matrix =====
-if settings.CONFUSION_MATRIX:
+if settings.GENERATE_CONFUSION_MATRIX:
     pred_records = []
     for i, ((p, t), acts) in enumerate(zip(preds, wholeacts)):
         acts = acts * 1  # To int
@@ -184,27 +184,28 @@ for (
     )
 
     # ==== STEP 4: generating results ====
-    card_htmls = vneuron.generate_html_summary(
-        fo.data,
-        layername,
-        preds,
-        mc,
-        tally_result=tally_result,
-        contributors=layer_contrs,
-        maxfeature=layer_maxfeature,
-        features=layer_features,
-        prev_layername=prev_layername,
-        prev_tally=None if not tallies else tallies[-1],
-        prev_features=prev_features,
-        prev_thresholds=prev_thresholds,
-        thresholds=layer_thresholds,
-        force=True,
-        skip=False,
-    )
+    if settings.GENERATE_HTML_SUMMARY:
+        card_htmls = vneuron.generate_html_summary(
+            fo.data,
+            layername,
+            preds,
+            mc,
+            tally_result=tally_result,
+            contributors=layer_contrs,
+            maxfeature=layer_maxfeature,
+            features=layer_features,
+            prev_layername=prev_layername,
+            prev_tally=None if not tallies else tallies[-1],
+            prev_features=prev_features,
+            prev_thresholds=prev_thresholds,
+            thresholds=layer_thresholds,
+            force=True,
+            skip=False,
+        )
 
-    tallies.append({record["unit"]: record for record in tally_result})
-    if card_htmls is not None:
-        all_card_htmls[layername] = card_htmls
+        tallies.append({record["unit"]: record for record in tally_result})
+        if card_htmls is not None:
+            all_card_htmls[layername] = card_htmls
 
 # ==== STEP 5: generate last layer contributions visualization ====
 if settings.CONTRIBUTIONS:
